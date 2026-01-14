@@ -1,0 +1,22 @@
+.App {
+    text-align: center;
+    letter-spacing: -0.8px;
+}
+
+.main-bg {
+    height: 300px;
+    background-image: url('./images/shoes1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.befAnimation {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.aftAnimation {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.5s;
+}
