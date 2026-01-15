@@ -9,6 +9,7 @@ import DetailProduct from './pages/DetailProduct';
 import About from './pages/About';
 import EventLayout from './pages/EventLayout';
 import axios from 'axios';
+import Cart from './pages/Cart.jsx';
 
 export let Context1 = createContext(); 
 
@@ -29,6 +30,7 @@ function App(){
           <Nav.Link onClick={() => navigate('/event')}>Event</Nav.Link>
           <Nav.Link as={Link} to="/detail">상세</Nav.Link>
           <Nav.Link onClick={() => navigate('/about')}>어바웃</Nav.Link>
+          <Nav.Link onClick={() => navigate('/cart')}>Cart</Nav.Link>
         </Nav>
         </Container>
       </Navbar>
@@ -78,6 +80,7 @@ function App(){
             <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>} />
             <Route path="two" element={<div>생일기념 쿠폰받기</div>} />
           </Route>
+          <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </div>

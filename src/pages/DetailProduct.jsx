@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import {Context1} from '@/App.jsx';
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../store/cartSlice";
+
 let YellowBtn = styled.button`
   background: yellow;
   color: black;
@@ -39,6 +42,9 @@ function DetailProduct(props) {
 
   const [tabpage, setTabpage] = useState(0);
 
+  //let carts = useSelector((state) => state.장바구니);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setTimeout(() => {
       setHide(true);
@@ -50,6 +56,18 @@ function DetailProduct(props) {
     let alertValue = value ? false : (inputText === null || inputText === "" || inputText === undefined) ? false : true;
     setInputTextAlert(alertValue);
   }, [inputText]);
+
+  // 최근본 상품 로컬스토리지에 저장
+  let watched =localStorage.getItem('watched');
+  if ( watched === null ) {
+    localStorage.setItem('watched', JSON.stringify([proNumber]));
+  } else {
+    let watchedArray = JSON.parse(watched);
+    if ( watchedArray.includes(proNumber) === false ) {
+      watchedArray.push(proNumber);
+      localStorage.setItem('watched', JSON.stringify(watchedArray));
+    }
+  }
 
   return (
     <div className="container">
@@ -80,7 +98,7 @@ function DetailProduct(props) {
           <h4 className="pt-5">{filteredShoes[0].title}</h4>
           <p>{filteredShoes[0].content}</p>
           <p>{filteredShoes[0].price.toLocaleString()}원</p>
-          <button className="btn btn-danger">주문하기</button> 
+          <button className="btn btn-danger" onClick={() => dispatch(addItem({id: filteredShoes[0].id, name: filteredShoes[0].title, count: 1}))}>주문하기</button> 
         </div>
       </div>
       {/* defaultActiveKey 속성으로 기본 선택 탭 지정 */}
