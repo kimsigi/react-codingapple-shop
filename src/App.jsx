@@ -10,6 +10,7 @@ import About from './pages/About';
 import EventLayout from './pages/EventLayout';
 import axios from 'axios';
 import Cart from './pages/Cart.jsx';
+import { useQuery } from '@tanstack/react-query';
 
 export let Context1 = createContext(); 
 
@@ -19,6 +20,16 @@ function App(){
 
   let [shoes, setShoes] = useState(dataShoes);
   const [재고, set재고] = useState([10, 11, 12]);
+
+  let result = useQuery({
+    queryKey: ['작명'],
+    queryFn: async () => 
+    {
+      const response = await axios.get(`https://codingapple1.github.io/userdata.json`);
+      console.log(response);
+      return response.data;
+    }
+  });
   
   return (
     <div className="App">
@@ -97,5 +108,6 @@ const Product = (props) => {
     </Col>
   );
 }
+
 
 export default App
